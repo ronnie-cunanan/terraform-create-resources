@@ -18,6 +18,24 @@ pipeline {
             }
         }
 
+        stage('Select Environment') {
+            steps {
+                script {
+                    echo "🌍 Selected environment: ${ENVIRONMENT}"
+
+                    // Build path to tfvars file
+                    env.TFVARS_FILE = "env/${ENVIRONMENT}.tfvars"
+
+                    // Validate file exists
+                    if (!fileExists(env.TFVARS_FILE)) {
+                        error "❌ Missing ${env.TFVARS_FILE} — cannot continue"
+                    }
+
+                    echo "📄 Using tfvars file: ${env.TFVARS_FILE}"
+                }
+            }
+        }       
+
         stage('Terraform Init') {
             steps {
                 script {
@@ -39,7 +57,7 @@ pipeline {
                 script {
                     echo "🔍 Running Terraform Plan..."
                     echo "--------------------------------"
-                    sh "terraform plan -out=tfplan"
+                    sh "terraform plan -input=false -var-file=${env.TFVARS_FILE} -out=tfplan"
                 }
             }
         }
@@ -49,7 +67,7 @@ pipeline {
                 script {
                     echo "🚀 Running Terraform Apply..."
                     echo "--------------------------------"
-                    sh "terraform apply -auto-approve tfplan"
+                    sh "terraform apply -input=false -auto-approve tfplan"
                 }
             }
         }
