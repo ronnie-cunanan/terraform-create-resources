@@ -17,3 +17,8 @@ variable "environment" {
   description = "Environment name used for tagging."
   type        = string
 }
+
+variable "key_name" {
+  description = "EC2 key pair name for SSH access."
+  type        = string
+}
