@@ -22,3 +22,13 @@ variable "node_sg_id" {
   description = "Security group ID for worker-node."
   type        = string
 }
+
+variable "ec2_instance_profile_name" {
+  description = "IAM instance profile name for general EC2 instances."
+  type        = string
+}
+
+variable "jenkins_instance_profile_name" {
+  description = "IAM instance profile name for the CI/CD server."
+  type        = string
+}
