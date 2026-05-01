@@ -19,3 +19,23 @@ module "sg" {
   vpc_id   = module.vpc.vpc_id
   vpc_cidr = module.vpc.vpc_cidr
 }
+
+# -------------------------
+# IAM ROLES MODULE
+# -------------------------
+module "iam_roles" {
+  source = "./modules/iam_roles"
+}
+
+# -------------------------
+# EC2 MODULE
+# -------------------------
+module "ec2" {
+  source = "./modules/ec2"
+
+  key_name           = var.key_name
+  subnet_id          = module.vpc.public_subnet_id
+  cicd_sg_id         = module.sg.cicd_sg_id
+  controlplane_sg_id = module.sg.controlplane_sg_id
+  node_sg_id         = module.sg.node_sg_id
+}
