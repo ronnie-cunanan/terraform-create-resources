@@ -38,4 +38,7 @@ module "ec2" {
   cicd_sg_id         = module.sg.cicd_sg_id
   controlplane_sg_id = module.sg.controlplane_sg_id
   node_sg_id         = module.sg.node_sg_id
+  
+  ec2_instance_profile_name     = module.iam_roles.tf_ec2_instance_profile_name
+  jenkins_instance_profile_name = module.iam_roles.tf_jenkins_instance_profile_name
 }
