@@ -66,11 +66,34 @@ pipeline {
             steps {
                 script {
                     echo "🚀 Running Terraform Apply..."
-                    echo "--------------------------------"
                     sh "terraform apply -input=false -auto-approve tfplan"
+
+                    // Capture EC2 public IP
+                    env.EC2_PUBLIC_IP = sh(
+                        script: "terraform output -raw cicd_server_public_ip",
+                        returnStdout: true
+                    ).trim()
+
+                    echo "🌐 EC2 Public IP: ${env.EC2_PUBLIC_IP}"
                 }
             }
         }
+
+        stage('Generate Ansible Inventory') {
+            steps {
+                script {
+                    echo "📝 Generating Ansible inventory..."
+
+                    writeFile file: "inventory.ini", text: """
+[docker_host]
+${env.EC2_PUBLIC_IP} ansible_user=ubuntu
+"""
+
+                    sh "cat inventory.ini"
+                }
+            }
+        }
+        
     }
 
     post {
