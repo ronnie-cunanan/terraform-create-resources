@@ -115,7 +115,7 @@ ${env.EC2_PUBLIC_IP} ansible_user=ubuntu
                                 ansible-playbook -i /workspace/inventory.ini \
                                 -u $SSH_USER \
                                 --private-key /root/.ssh/id_rsa \
-                                /workspace/ansible/install_docker.yml
+                                /workspace/ansible/install-docker.yaml
                         """
                     }
                 }
