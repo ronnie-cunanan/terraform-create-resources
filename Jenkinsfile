@@ -93,7 +93,31 @@ ${env.EC2_PUBLIC_IP} ansible_user=ubuntu
                 }
             }
         }
-        
+
+        stage('Configure with Ansible') {
+            steps {
+                script {
+                    echo "🔧 Running Ansible Playbook..."
+
+                    // Load SSH key securely from Jenkins Credentials
+                    withCredentials([
+                        sshUserPrivateKey(
+                            credentialsId: 'ec2-ssh-key',
+                            keyFileVariable: 'SSH_KEY_FILE',
+                            usernameVariable: 'SSH_USER'
+                        )
+                    ]) {
+                        sh """
+                            ansible-playbook \
+                                -i inventory.ini \
+                                -u $SSH_USER \
+                                --private-key $SSH_KEY_FILE \
+                                install_docker.yml
+                        """
+                    }
+                }
+            }
+        }        
     }
 
     post {
