@@ -6,12 +6,13 @@ module "instances" {
 
   name                        = each.key
   ami                         = data.aws_ami.ubuntu.id
-  instance_type               = "t3.micro"
+  instance_type               = "t3.medium"
   key_name                    = var.key_name
   subnet_id                   = var.subnet_id
   vpc_security_group_ids      = [each.value.security_group_id]
   associate_public_ip_address = true
   iam_instance_profile        = each.value.instance_profile
+  user_data                   = each.key == "cicd-server" ? var.cicd_server_user_data : null
 
   root_block_device = [
     {

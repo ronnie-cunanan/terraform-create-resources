@@ -32,3 +32,9 @@ variable "jenkins_instance_profile_name" {
   description = "IAM instance profile name for the CI/CD server."
   type        = string
 }
+
+variable "cicd_server_user_data" {
+  description = "Optional cloud-init user data for cicd-server."
+  type        = string
+  default     = null
+}
