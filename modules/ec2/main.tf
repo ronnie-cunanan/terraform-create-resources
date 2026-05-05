@@ -12,6 +12,7 @@ module "instances" {
   vpc_security_group_ids      = [each.value.security_group_id]
   associate_public_ip_address = true
   iam_instance_profile        = each.value.instance_profile
+  user_data                   = each.key == "cicd-server" ? var.cicd_server_user_data : null
 
   root_block_device = [
     {

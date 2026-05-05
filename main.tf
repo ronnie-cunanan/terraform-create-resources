@@ -41,4 +41,6 @@ module "ec2" {
   
   ec2_instance_profile_name     = module.iam_roles.tf_ec2_instance_profile_name
   jenkins_instance_profile_name = module.iam_roles.tf_jenkins_instance_profile_name
+
+  cicd_server_user_data = file("cloud-init.yaml")
 }
