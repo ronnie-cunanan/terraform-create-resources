@@ -108,11 +108,14 @@ ${env.EC2_PUBLIC_IP} ansible_user=ubuntu
                         )
                     ]) {
                         sh """
-                            ansible-playbook \
-                                -i inventory.ini \
+                            docker run --rm \
+                                -v \$PWD:/workspace \
+                                -v $SSH_KEY_FILE:/root/.ssh/id_rsa \
+                                willhallonline/ansible:latest \
+                                ansible-playbook -i /workspace/inventory.ini \
                                 -u $SSH_USER \
-                                --private-key $SSH_KEY_FILE \
-                                install_docker.yml
+                                --private-key /root/.ssh/id_rsa \
+                                /workspace/ansible/install_docker.yml
                         """
                     }
                 }
