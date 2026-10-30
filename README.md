@@ -131,6 +131,8 @@ flowchart TB
 ├── env/
 │   ├── dev.tfvars                # Development environment values
 │   └── prod.tfvars               # Production environment values
+├── images/                       # Project execution screenshots
+│   └── jenkins-pipeline-success.jpg
 ├── modules/
 │   ├── ec2/                      # EC2 definitions and AMI lookup
 │   ├── iam_roles/                # IAM roles, policies, and profiles
@@ -233,6 +235,15 @@ The Jenkins pipeline provides an environment choice (`dev` or `prod`) and is int
 - Review the Terraform plan and the resources that will be created or changed.
 - Consider adding a mandatory approval gate for production.
 - Review SSH host-key verification, credential handling, and failure handling before using the pipeline beyond a disposable learning environment.
+
+### 📸 Jenkins Pipeline Execution
+
+The screenshot below shows the Jenkins Pipeline Stage View after a
+successful run. It provides a visual record of the pipeline stages and
+their execution status.
+
+![Jenkins Pipeline Stage View - Successful
+Execution](images/jenkins-pipeline-success.jpg)
 
 ---
 
