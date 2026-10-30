@@ -132,7 +132,7 @@ flowchart TB
 │   ├── dev.tfvars                # Development environment values
 │   └── prod.tfvars               # Production environment values
 ├── images/                       # Project execution screenshots
-│   └── jenkins-pipeline-success.png
+│   └── jenkins-pipeline-success.jpg
 ├── modules/
 │   ├── ec2/                      # EC2 definitions and AMI lookup
 │   ├── iam_roles/                # IAM roles, policies, and profiles
